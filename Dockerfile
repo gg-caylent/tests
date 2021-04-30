@@ -1,3 +1,5 @@
-FROM alpine
+FROM alpine:3.1
 
-RUN ["sleep", "3"]
+RUN apk add -U --no-cache wget tar
+
+CMD ["sleep", "3"]
