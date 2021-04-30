@@ -1,5 +1,3 @@
-FROM alpine:3.1
-
-RUN apk add -U --no-cache wget tar
+FROM node:10:8.0-jessie
 
 CMD ["sleep", "3"]
