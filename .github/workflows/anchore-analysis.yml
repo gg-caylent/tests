@@ -38,7 +38,7 @@ jobs:
       run:  |
         GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" npx @security-alert/sarif-to-comment \
           "./results.sarif" \
-          --commentUrl "https://github.com/owner/repo/issues/${{ github.event.number }}" \
-          --sarifContentOwner "owner" \
-          --sarifContentRepo "repo" \
+          --commentUrl "https://github.com/gg-caylent/tests/issues/${{ github.event.number }}" \
+          --sarifContentOwner "gg-caylent" \
+          --sarifContentRepo "tests" \
           --sarifContentBranch "${{ steps.extract_branch.outputs.branch }}"
