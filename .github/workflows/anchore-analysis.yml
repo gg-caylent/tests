@@ -34,10 +34,8 @@ jobs:
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       id: extract_branch
     - name: Install sarif-to-comment
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run:  |
-        npx @security-alert/sarif-to-comment \
+        GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" npx @security-alert/sarif-to-comment \
           "./results.sarif" \
           --commentUrl "https://github.com/owner/repo/issues/${{ github.event.number }}" \
           --sarifContentOwner "owner" \
