@@ -35,7 +35,7 @@ jobs:
       id: extract_branch
     - name: Install sarif-to-comment
       run:  |
-        npx @security-alert/sarif-to-comment results.sarif \
+        npx @security-alert/sarif-to-comment \
           --commentUrl "https://github.com/owner/repo/issues/${{ github.event.number }}" \
           --sarifContentOwner "owner" \
           --sarifContentRepo "repo" \
