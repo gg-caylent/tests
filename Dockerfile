@@ -1,3 +1,3 @@
-FROM node:10:8.0-jessie
+FROM imiell/bad-dockerfile
 
 CMD ["sleep", "3"]
