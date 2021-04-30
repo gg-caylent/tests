@@ -1,3 +1,3 @@
 FROM alpine
 
-RUN ["sleep", "3600"]
+RUN ["sleep", "3"]
