@@ -29,5 +29,14 @@ jobs:
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: results.sarif
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
     - name: Install sarif-to-comment
-      run:  npx @security-alert/sarif-to-comment results.sarif
+      run:  npx @security-alert/sarif-to-comment results.sarif \
+              --commentUrl "https://github.com/owner/repo/issues/${{ github.event.number }}"
+              --sarifContentOwner "owner"
+              --sarifContentRepo "repo"
+              --sarifContentBranch "${{ steps.extract_branch.outputs.branch }}"
+              "./results.sarif"
