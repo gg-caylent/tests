@@ -10,10 +10,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ main ]
-  schedule:
-    - cron: '28 13 * * 1'
 
 jobs:
   Anchore-Build-Scan:
@@ -28,7 +25,20 @@ jobs:
       with:
         image: "localbuild/testimage:latest"
         acs-report-enable: true
+        fail-build: false
     - name: Upload Anchore Scan Report
       uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: results.sarif
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
+    - name: Install sarif-to-comment
+      run:  |
+        GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" npx @security-alert/sarif-to-comment \
+          "./results.sarif" \
+          --commentUrl "https://github.com/gg-caylent/tests/issues/${{ github.event.number }}" \
+          --sarifContentOwner "gg-caylent" \
+          --sarifContentRepo "tests" \
+          --sarifContentBranch "${{ steps.extract_branch.outputs.branch }}"

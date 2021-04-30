@@ -1,5 +1,3 @@
-FROM alpine:3.1
-
-RUN apk add -U --no-cache wget tar
+FROM imiell/bad-dockerfile
 
 CMD ["sleep", "3"]
